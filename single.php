@@ -6,10 +6,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php
 include "db.php";
-
+$id = $_GET['id'];
 $newConnection = new Database("localhost", "root", "", "newss");
-$a = $newConnection->select('xeberr');
+$a = $newConnection->select('xeberr', "id=$id");
+$b = $newConnection->sirala('xeberr');
+$c = $newConnection->most_viewed();
+$newConnection->view_count($_GET['id'])
+
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -63,7 +68,7 @@ $a = $newConnection->select('xeberr');
 		<div class="content">
 		<?php while ($row = mysqli_fetch_assoc($a)): ?>
 			<div class="box1">
-			   <h2><a href="single.php?id=<?=$row['id'];?>"><?=$row['title']?></a></h2>
+			   <h2><?=$row['title']?></h2>
 			   <span><?=$row['create.date']?></span>
 
 				<div class="top_img">
@@ -71,8 +76,9 @@ $a = $newConnection->select('xeberr');
 				</div>
 				<div class="data_desc">
 				    <p><?=$row['text']?></p>
-				    <a href="#">Continue reading >>></a>
-			</div>
+
+				</div>
+
 			</div>
 			<?php endwhile;?>
 		</div>
@@ -80,26 +86,23 @@ $a = $newConnection->select('xeberr');
 		<div class="side_top">
 			<h2>Recent Feeds</h2>
 			<div class="list1">
-			   <ul>
-				 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-				 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-				 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-				 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-				 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			     <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			   </ul>
+				 <ul>
+				 <?php while ($row = mysqli_fetch_assoc($b)): ?>
+					<li><a href="single.php?id=<?=$row['id'];?>"><?=$row['title']?></a></li>
+				<?php endwhile;?>
+				</ul>
 			</div>
 		</div>
 	<div class="side_bottom">
-		<h2>Most Viewed</h2>
+		<h2 >Most Viewed</h2>
 		<div class="list2">
 		   <ul>
-			 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			 <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
+			<?php
+
+while ($row = mysqli_fetch_assoc($c)) {
+	?> <li><a href="single.php?id=<?=$row['id']?>"><?=substr($row['title'], 0, 30) . "..."?> </a></li> <?php
+}
+?>
 		   </ul>
 		</div>
 	</div>

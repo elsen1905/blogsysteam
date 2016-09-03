@@ -24,7 +24,7 @@ class Database {
 		}
 	}
 
-	public function select($table, $row = '*', $where = null) {
+	public function select($table, $where = null, $row = '*') {
 
 		$sql = "select $row from $table ";
 		if ($where != null) {
@@ -47,9 +47,30 @@ class Database {
 		return $query;
 	}
 	public function delete($table, $where) {
-		$sql = "DELETE FROM `xeberr` WHERE id=$where";
+		$sql = "DELETE FROM `xeberr` WHERE id
+		=$where";
 		$query = mysqli_query($this->conn, $sql);
+		return $query;
+	}
+	public function sirala($table) {
+
+		$sql = "SELECT * FROM $table ORDER BY 'create.date' DESC limit 5";
+		$query = mysqli_query($this->conn, $sql);
+		return $query;
+	}
+	public function view_count($id) {
+		$sql = "UPDATE xeberr SET  view_count = view_count + 1 WHERE id = $id";
+		$query = mysqli_query($this->conn, $sql);
+
+		return $query;
+	}
+
+	public function most_viewed() {
+		$sql = "SELECT * FROM xeberr ORDER BY view_count DESC LIMIT 5";
+		$query = mysqli_query($this->conn, $sql);
+
 		return $query;
 	}
 }
 ?>
+

@@ -9,6 +9,9 @@ include "db.php";
 
 $newConnection = new Database("localhost", "root", "", "newss");
 $a = $newConnection->select('xeberr');
+$b = $newConnection->sirala('xeberr');
+$c = $newConnection->most_viewed();
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -29,12 +32,12 @@ $a = $newConnection->select('xeberr');
 	<div class="header_top">
 		<div class="wrap">
 			<div class="logo">
-			     <a href="index.html"><img src="images/logo.png" alt="" /></a>
+			     <a href="index.php"><img src="images/logo.png" alt="" /></a>
 			</div>
 			<div class="login_button">
 			    <ul>
 			    <li><a href="login.php">Sign in</a><li> |
-			    <li><a href="#">Login</a></li>
+			    <li><a href="login.php">Login</a></li>
 			    </ul>
 			</div>
 			<div class="clear"></div>
@@ -44,15 +47,15 @@ $a = $newConnection->select('xeberr');
 		<div class="wrap">
 			<div class="menu">
 			    <ul>
-			    	<li><a href="index.html">HOME</a></li>
-			    	<li><a href="single.html">ARTICLES</a></li>
-			    	<li><a href="single.html">SERVICES</a></li>
+			    	<li><a href="index.php">HOME</a></li>
+			    	<li><a href="single.php">ARTICLES</a></li>
+			    	<li><a href="single.php">SERVICES</a></li>
 			    	<li><a href="#">LOGOS</a></li>
-			    	<li><a href="single.html">TOOLS</a></li>
-			    	<li><a href="single.html">ICONS</a></li>
-			    	<li><a href="single.html">WALLPAPERS</a></li>
-			    	<li><a href="index.html">HELP</a></li>
-			    	<li><a href="contact.html">CONTACT</a></li>
+			    	<li><a href="single.php">TOOLS</a></li>
+			    	<li><a href="single.php">ICONS</a></li>
+			    	<li><a href="single.php">WALLPAPERS</a></li>
+			    	<li><a href="index.php">HELP</a></li>
+			    	<li><a href="contact.php">CONTACT</a></li>
 			    </ul>
 			</div>
 			<div class="search_box">
@@ -145,12 +148,9 @@ $a = $newConnection->select('xeberr');
 		    <h2>Recent Feeds</h2>
 			<div class="list1">
 				 <ul>
-					<li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-					<li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-					<li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-					<li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-					<li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-					<li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
+				 <?php while ($row = mysqli_fetch_assoc($b)): ?>
+					<li><a href="single.php?id=<?=$row['id'];?>"><?=$row['title']?></a></li>
+				<?php endwhile;?>
 				</ul>
 			</div>
 		</div>
@@ -158,12 +158,11 @@ $a = $newConnection->select('xeberr');
 	    <h2>Most Viewed</h2>
 		<div class="list2">
 		    <ul>
-			  <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			  <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			  <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			  <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			  <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
-			  <li><a href="#">Lorem ipsum dolor desktop publishing</a></li>
+		<?php
+while ($row = mysqli_fetch_assoc($c)) {?>
+             	<li><a href="single.php?id=<?=$row['id']?>"><?=substr($row['title'], 0, 30) . "....."?> </a></li> <?php
+}
+?>
 			</ul>
 		</div>
 	</div>
