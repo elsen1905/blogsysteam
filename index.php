@@ -72,7 +72,7 @@ $c = $newConnection->most_viewed();
 		<div class="content">
 		<?php while ($row = mysqli_fetch_assoc($a)): ?>
 			<div class="box1">
-			    <h2><a href="single.php?id=<?=$row['id'];?>"><?=$row['title']?></a></h2>
+			<h2><a href="single.php?id=<?=$row['id'];?>"><?=$row['title']?></a></h2>
 			    <span><?=$row['create.date']?></span>
 				<div class="box1_img">
 				    <img src="uploads/<?=$row['img']?>" alt="" />

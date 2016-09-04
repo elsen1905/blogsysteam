@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
 	move_uploaded_file($_FILES["Photo"]["tmp_name"], "uploads/" . $target_file);
 	$newConnection = new Database("localhost", "root", "", "newss");
 	$a = $newConnection->update('xeberr', $ad, $soyad, $target_file, "id=$id");
-	var_dump($target_file);
+
 	if ($a) {
 		header('Location:admin.php');
 

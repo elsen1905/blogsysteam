@@ -7,12 +7,63 @@ if ($_SESSION['giris'] == true) {
 
 
 <?php
-include "db.php";
+
+	include "db.php";
 
 	$newConnection = new Database("localhost", "root", "", "newss");
 	$a = $newConnection->select('xeberr');
 	?>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.img img{
+	width: 200px;
+	height: 200px;
+}
+.button1{
+	background: #217647;
 
+}
+.button1 a{
+	color:white;
+	text-decoration: none;
+}
+.button2{
+	background: #D34826;
+
+}
+.button2 a{
+	color:white;
+	text-decoration: none;
+}
+.button3{
+	background: #217647;
+	float: left;
+	padding: 10px;
+	margin: 10px;
+}
+.button3 a{
+	color:white;
+	text-decoration: none;
+}
+.button4{
+	background: red;
+	float: right;
+	padding: 10px;
+	margin: 10px;
+}
+.button4 a{
+	color:white;
+	text-decoration: none;
+}
+</style>
+	<title></title>
+</head>
+<body>
+
+<button class="button3"><a href="insert.php">elave et</a></button>
+<button class="button4"><a href="logout.php">Cixis et</a></button>
 		<table border="1">
 			<thead>
 				<tr>
@@ -31,28 +82,15 @@ include "db.php";
 				<td><?=$row['title']?></td>
 				<td><?=$row['text']?></td>
 				<td><?=$row['create.date']?></td>
-				<td><?=$row['img']?></td>
+				<td class="img"><img src="uploads/<?=$row['img']?>"/>
+				</td>
 
-				<td><a href="edit.php?id=<?=$row['id']?>">edit</a></td>
-				<td><a href="delete.php?id=<?=$row['id']?>">delete</a></td>
+				<td><button class="button1"><a href="edit.php?id=<?=$row['id']?>">edit</a></button></td>
+				<td> <button class="button2"><a href="delete.php?id=<?=$row['id']?>">delete</a></button></td>
 			</tr>
 			<?php endwhile;?>
 			</tbody>
 		</table>
-		<a href="insert.php">elave et</a>
-
-
-
-
-<h1>Xoş gəlmisiniz, admin!</h1>
-<a href="logout.php">Cixis et</a>
-
-
-
-
-
-
-
 
 
 
@@ -63,3 +101,7 @@ include "db.php";
 	header('Location:index.php');
 }
 ?>
+</body>
+</html>
+
+

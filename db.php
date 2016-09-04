@@ -24,7 +24,7 @@ class Database {
 		}
 	}
 
-	public function select($table, $where = null, $row = '*') {
+	public function select($table, $row = '*', $where = null) {
 
 		$sql = "select $row from $table ";
 		if ($where != null) {
@@ -54,7 +54,7 @@ class Database {
 	}
 	public function sirala($table) {
 
-		$sql = "SELECT * FROM $table ORDER BY 'create.date' DESC limit 5";
+		$sql = "SELECT * FROM $table ORDER BY id DESC limit 5";
 		$query = mysqli_query($this->conn, $sql);
 		return $query;
 	}
